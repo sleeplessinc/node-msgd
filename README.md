@@ -1,5 +1,5 @@
 
-## node-msgd
+# node-msgd
 
 Implements a simple server for sending and receiving custom messages over HTTP.
 

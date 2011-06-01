@@ -1,0 +1,8 @@
+{"name":"msgd"
+,"version":"1.0.0"
+,"description":"Implements a simple server for sending and receiving custom messages over HTTP"
+,"author":"Joe Hitchens <joe@sleepless.com>"
+,"license":{"type":"MIT" ,"url":"https://github.com/sleeplessinc/node-msgd/raw/master/LICENSE"}
+,"main":"msgd.js"
+,"repositories":[{"type":"git","url":"https://sleeplessinc@github.com/sleeplessinc/node-msgd.git"}]
+}
