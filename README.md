@@ -3,6 +3,7 @@
 
 Implements a simple server for sending and receiving custom messages over HTTP
 
+---
 
 ## Example Use Case
 
