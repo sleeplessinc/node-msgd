@@ -1,21 +1,18 @@
 
 var msgd = require("./msgd"),
 	util = require("util"),
-	log = console.log,
-	insp = util.inspect
+	log = console.log
 
-var daemon = msgd.createServer(function(msg, cb) {
 
-	log("msg in: "+insp(msg))
+function msgHandler(msg, cb) {
 
-	if(msg.e)
-		cb("Test error")
-	else
-		cb(null, {r:"Hello, world."})
+	log("msg in: "+util.inspect(msg))
 
-})
+	cb({greeting:"Hello, world."})
 
-msgd.listen(3333)
+}
+
+msgd.createServer(msgHandler).listen(3333)
 log("listening")
 
 
