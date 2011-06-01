@@ -1,31 +1,70 @@
 http = require("http")
-util = require("util")
+var util = require("util")
 
-log = console.log
-insp = util.inspect
+var log = console.log
+var insp = util.inspect
 
-server = http.createServer(function(req, res) {
-	var m = req.method
 
-	log("method="+m)
-	if(m != "POST") {
-		res.end("error")
-	}
-	else { 
-		req.on("data", function(d) {
-			log("data: "+d);
-		})
-		req.on("error", function(e) {
-			log("error"+insp(e));
-		})
-		req.on("end", function() {
-			log("end");
-			res.end("thanks\n");
-		})
-	}
-})
+exports.createServer = function(msgHandler) {
 
-server.listen(3333)
+	return http.createServer(function(req, res) {
+		var jsonIn = ""
 
-console.log("listening")
+		req.setEncoding("utf8")
+		res.setEncoding("utf8")
+
+		log("method="+req.method)
+		if(req.method != "POST") {
+			res.statusCode = 404;
+			res.end("Bad method: "+m)
+		}
+		else { 
+			req.on("data", function(d) {
+				jsonIn += d
+			})
+			req.on("error", function(e) {
+				res.statusCode = 404;
+				res.end("Read error")
+			})
+			req.on("end", function() {
+				try {
+					msgHandler(JSON.parse(jsonIn), function(e, msg) {
+						var jsonOut = null
+
+						if(e) {
+							res.statusCode = 404;
+							res.end("Error: "+e)
+						}
+						else {
+							jsonOut = JSON.stringify(msg)
+							res.writeHead(200, {
+								"Content-Type": "text/plain",
+								"Content-Length": jsonOut.length,
+							})
+							res.end(jsonOut)
+						}
+					})
+				}
+				catch(e) {
+					res.statusCode = 404;
+					res.end("Read error")
+				}
+			})
+		}
+	})
+}
+
+
+// test code
+
+if(true) {
+	var s = exports.createServer(function(msg, cb) {
+		log("msg="+insp(msg))
+		cb(null, {r:"okey"})
+	})
+
+	s.listen(3333)
+
+	log("listening")
+}
 
