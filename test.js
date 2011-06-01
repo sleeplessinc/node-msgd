@@ -1,12 +1,10 @@
 
-var msgd = require("./msgd")
+var server = require("./msgd")
 
 function msgHandler(msg, cb) {
-
 	cb("You said, \""+msg+"\"");
-
 }
 
-msgd.createServer(msgHandler).listen(3333)
+server.createServer(msgHandler).listen(3333)
 
 
