@@ -23,28 +23,25 @@ msgd.createServer(msgHandler).listen(3333)
 
 This is the HTML page:
 
+	<html>
+	<body>
 
-&lt;html&gt;
-&lt;body&gt;
+	Send: <input onchange="changed(this.value)"><p>
+	Received: <textarea id=rcvd></textarea><p>
 
-Send: &lt;input onchange="changed(this.value)"&gt;&lt;p&gt;
-Received: &lt;textarea id=rcvd&gt;&lt;/textarea&gt;&lt;p&gt;
+	<script>
 
-&lt;script&gt;
-
-	function changed(v) {
-		var r = new XMLHttpRequest();
-		r.open("POST", "http://127.0.0.1:3333/", true);
-		r.onreadystatechange = function() {
-			if(r.readyState == 4) {
-				document.getElementById("rcvd").value = r.responseText
-				r.onreadystatechange = function() {}
+		function changed(v) {
+			var r = new XMLHttpRequest();
+			r.open("POST", "http://127.0.0.1:3333/", true);
+			r.onreadystatechange = function() {
+				if(r.readyState == 4) {
+					document.getElementById("rcvd").value = r.responseText
+					r.onreadystatechange = function() {}
+				}
 			}
+			r.send(v);
 		}
-		r.send(v);
-	}
 
-&lt;/script&gt;
-
-`
+	</script>
 
