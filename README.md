@@ -9,7 +9,7 @@ Example code here demonstrates this use case.
 
 This is the server:
 
-`
+
 var msgd = require("./msgd")
 
 function msgHandler(msg, cb) {
@@ -23,14 +23,14 @@ msgd.createServer(msgHandler).listen(3333)
 
 This is the HTML page:
 
-`
-<html>
-<body>
 
-Send: <input onchange="changed(this.value)"><p>
-Received: <textarea id=rcvd></textarea><p>
+&lt;html&gt;
+&lt;body&gt;
 
-<script>
+Send: &lt;input onchange="changed(this.value)"&gt;&lt;p&gt;
+Received: &lt;textarea id=rcvd&gt;&lt;/textarea&gt;&lt;p&gt;
+
+&lt;script&gt;
 
 	function changed(v) {
 		var r = new XMLHttpRequest();
@@ -44,7 +44,7 @@ Received: <textarea id=rcvd></textarea><p>
 		r.send(v);
 	}
 
-</script>
+&lt;/script&gt;
 
 `
 
