@@ -1,53 +1,39 @@
 
 var http = require("http")
-var util = require("util")
-
-var log = console.log
-var insp = util.inspect
-
 
 var fail = function(res, err) {
-	var jsonOut = err.message+"\n"
-
+	var msgOut = err.message+"\n"
 	res.writeHead(500, {
 		"Content-Type": "text/plain",
-		"Content-Length": jsonOut.length,
+		"Content-Length": msgOut.length,
 	})
-	log("<-- "+jsonOut)
-	res.end(jsonOut)
+	res.end(msgOut)
 }
-
 
 exports.createServer = function(msgHandler) {
 
 	return http.createServer(function(req, res) {
-		var jsonIn = ""
-
+		var msgIn = ""
 		req.setEncoding("utf8")
-		//res.setEncoding('utf8')
-
-		log("method="+req.method)
 		if(req.method != "POST") {
 			fail(res, new Error("BAD METHOD: "+req.method))
 		}
 		else { 
 			req.on("data", function(d) {
-				jsonIn += d
+				msgIn += d
 			})
 			req.on("error", function(e) {
 				fail(res, e)
 			})
 			req.on("end", function() {
 				try {
-					log("--> "+jsonIn)
-					msgHandler(JSON.parse(jsonIn), function(msg) {
-						var jsonOut = JSON.stringify(msg)
+					msgHandler(msgIn, function(msg) {
+						var msgOut = msg
 						res.writeHead(200, {
 							"Content-Type": "text/plain",
-							"Content-Length": jsonOut.length,
+							"Content-Length": msgOut.length,
 						})
-						log("<-- "+jsonOut)
-						res.end(jsonOut)
+						res.end(msgOut)
 					})
 				}
 				catch(e) {
@@ -57,5 +43,4 @@ exports.createServer = function(msgHandler) {
 		}
 	})
 }
-
 
