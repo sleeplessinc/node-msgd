@@ -1,13 +1,16 @@
 
 # node-msgd
 
-Implements a simple server for sending and receiving text messages.
+Implements a simple server for sending and receiving custom messages over HTTP
 
-Example use case would be a web page using AJAX calls to send msgs to a
+
+## Example Use Case
+
+An example use case would be a web page using AJAX calls to send msgs to a
 server using a custom protocol.
-Example code here demonstrates this use case.
+This is demonstrated below.
 
-This is the server:
+Server code:
 
 	var msgd = require("./msgd")
 
@@ -20,7 +23,7 @@ This is the server:
 	msgd.createServer(msgHandler).listen(3333)
 
 
-This is the HTML page:
+HTML page:
 
 	<html>
 	<body>
