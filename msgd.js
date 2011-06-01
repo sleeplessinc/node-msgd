@@ -11,7 +11,7 @@ exports.createServer = function(msgHandler) {
 		var jsonIn = ""
 
 		req.setEncoding("utf8")
-		res.setEncoding("utf8")
+		res.setEncoding('utf8')
 
 		log("method="+req.method)
 		if(req.method != "POST") {
