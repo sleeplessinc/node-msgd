@@ -9,17 +9,16 @@ Example code here demonstrates this use case.
 
 This is the server:
 
+	var msgd = require("./msgd")
 
-var msgd = require("./msgd")
+	function msgHandler(msg, cb) {
 
-function msgHandler(msg, cb) {
+		cb("You said, \""+msg+"\"");
 
-	cb("You said, \""+msg+"\"");
+	}
 
-}
+	msgd.createServer(msgHandler).listen(3333)
 
-msgd.createServer(msgHandler).listen(3333)
-`
 
 This is the HTML page:
 
