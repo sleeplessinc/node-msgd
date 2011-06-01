@@ -1,4 +1,5 @@
-http = require("http")
+
+var http = require("http")
 var util = require("util")
 
 var log = console.log
@@ -11,7 +12,7 @@ exports.createServer = function(msgHandler) {
 		var jsonIn = ""
 
 		req.setEncoding("utf8")
-		res.setEncoding('utf8')
+		//res.setEncoding('utf8')
 
 		log("method="+req.method)
 		if(req.method != "POST") {
@@ -54,17 +55,4 @@ exports.createServer = function(msgHandler) {
 	})
 }
 
-
-// test code
-
-if(true) {
-	var s = exports.createServer(function(msg, cb) {
-		log("msg="+insp(msg))
-		cb(null, {r:"okey"})
-	})
-
-	s.listen(3333)
-
-	log("listening")
-}
 
